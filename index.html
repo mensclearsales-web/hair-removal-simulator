@@ -89,20 +89,18 @@
         </div>
       </div>
 
-      <div class='row'>
-        <label>カテゴリ<select id='cat-select-c'>
-          <option value='ヒゲ'>ヒゲ（眉小鼻無し）</option>
-          <option value='フェイス'>フェイス</option>
-          <option value='どこでも脱毛'>どこでも脱毛</option>
-          <option value='全身'>全身</option>
-          <option value='全身ヒゲ'>全身ヒゲ</option>
-          <option value='陰部'>陰部</option>
-          <option value='眉小鼻'>眉小鼻</option>
-          <option value='大人の身だしなみケアプラン'>大人の身だしなみケアプラン</option>
-          <option value='エレクトロポレーションヒゲ'>エレクトロポレーションヒゲ</option>
-          <option value='エレクトロポレーション上半身+下半身'>エレクトロポレーション上半身+下半身</option>
-          <option value='エレクトロポレーション上半身+下半身+陰部'>エレクトロポレーション上半身+下半身+陰部</option>
-        </select></label>
+        <div class="row">
+    <label>カテゴリ
+      <select id="cat-select-c">
+        <option value="ヒゲ">ヒゲ</option>
+        <option value="フェイス">フェイス</option>
+        <option value="どこでも脱毛20分">どこでも脱毛20分</option>
+        <option value="どこでも脱毛40分">どこでも脱毛40分</option>
+        <option value="全身+ヒゲor陰部">全身+ヒゲor陰部</option>
+        <option value="全身オール">全身オール</option>
+        <option value="陰部">陰部</option>
+      </select>
+    </label>
         <label>プラン<select id='plan-select-c'></select></label>
       </div>
       <div class='row'>
@@ -267,34 +265,138 @@
   </script>
 
   <!-- キャンペーン：データ定義とプルダウン初期化（"アフター保証"表記） -->
-  <script>
-  (function(){
-    function clone(o){return JSON.parse(JSON.stringify(o||{}))}
-    var D={
-      'ヒゲ':{'スタートプラン8回':110660,'ライトプラン12回（アフター保証30％）':143770,'スタンダード12回+1年（アフター保証50％）':277750,'プレミアム12回+1年（アフター保証80％）':333310},
-      'フェイス':{'スタートプラン8回':158430,'ライトプラン12回（アフター保証30％）':197000,'スタンダード12回+1年（アフター保証50％）':326890,'プレミアム12回+1年（アフター保証80％）':374260},
-      'どこでも脱毛':{'どこでも40分6回':237300,'どこでも40分9回（アフター保証50％）':345600,'どこでも60分6回（アフター保証25％）':294800,'どこでも60分9回（アフター保証50％）':429000},
-      '全身':{'トライアルプラン4回':196800,'スタートプラン8回（アフター保証25％）':359750,'ライトプラン12回（アフター保証50％）':506480,'スタンダード12回+1年（アフター保証80％）※特典付き':795160,'プレミアム12回+1年（アフター保証90％）※特典付き':906270},
-      '全身ヒゲ':{'トライアルプラン4回':213400,'スタートプラン8回（アフター保証25％）':396640,'ライトプラン12回（アフター保証50％）':554420,'スタンダード12回+1年（アフター保証80％）※特典付き':887750,'プレミアム12回+1年（アフター保証90％）※特典付き':1054420},
-      '陰部':{'1ヶ所4回':44420,'2ヶ所4回':66640,'3ヶ所4回':83310,'4ヶ所4回':95530,'1ヶ所8回（アフター保証25％）':88860,'2ヶ所8回（アフター保証25％）':133310,'3ヶ所8回（アフター保証25％）':166640,'4ヶ所8回（アフター保証25％）':194420,'1ヶ所12回（アフター保証50％）':122200,'2ヶ所12回（アフター保証50％）':183310,'3ヶ所12回（アフター保証50％）':233310,'4ヶ所12回（アフター保証50％）':299970,'1ヶ所12回+1年（アフター保証80％）':172200,'2ヶ所12回+1年（アフター保証80％）':233310,'3ヶ所12回+1年（アフター保証80％）':322200,'4ヶ所12回+1年（アフター保証80％）':388860},
-      '眉小鼻':{'スタートプラン8回（アフター保証30％）':68250,'ライトプラン12回（アフター保証50％）':81900,'スタンダード12回+1年（アフター保証80％）':181800},
-      '大人の身だしなみケアプラン':{'口回りセット8回':60000,'ヒゲ全体セット8回':72000,'ひじ下、手の甲指セット8回':60000,'胸腹セット8回':78000,'上半身セット8回':132000,'下半身セット8回':120000,'VIOおしりセット8回':174000,'選べる2点セット8回':117000,'選べる3セット8回':171000},
-      'エレクトロポレーションヒゲ':{'8回':99590,'12回':129300},
-      'エレクトロポレーション上半身+下半身':{'4回':88800,'8回':159840,'12回':213120},
-      'エレクトロポレーション上半身+下半身+陰部':{'4回':129800,'8回':233640,'12回':311520}
-    };
+<!-- キャンペーン：データ定義とプルダウン初期化 -->
+<script>
+(function(){
+  function clone(o){return JSON.parse(JSON.stringify(o||{}))}
+  var D={
+    'ヒゲ':{
+      '8回':110660,
+      '12回':143770,
+      '12回安心':277750,
+      '12回安心+EP':339800,
+      '12回安心+EP+プラ':389800
+    },
+    'フェイス':{
+      '8回':158430,
+      '12回':197000,
+      '12回安心':326890,
+      '12回安心+EP':374260,
+      '12回安心+EP+プラ':424260
+    },
+    'どこでも脱毛20分':{
+      '8回':129800,
+      '12回':178000,
+      '12回安心':309000,
+      '12回安心+プラ':359000
+    },
+    '陰部':{
+      '4回':98300,
+      '8回':194420,
+      '12回':279970,
+      '12回安心':448860,
+      '12回安心+プラ':498860
+    },
+    'どこでも脱毛40分':{
+      '4回':119800,
+      '8回':228000,
+      '12回':329000,
+      '12回安心':569000,
+      '12回安心+プラ':619000
+    },
+    '全身+ヒゲor陰部':{
+      '4回':196800,
+      '8回':359750,
+      '12回':506480,
+      '12回安心':795160,
+      '12回安心プラ':845160
+    },
+    '全身オール':{
+      '4回':213400,
+      '8回':396640,
+      '12回':554420,
+      '12回安心':887750,
+      '12回安心+プラ+EP':1054420
+    }
+  };
 
-    function get(){ try{var raw=localStorage.getItem('CAMPAIGN_DEF'); if(raw){ var o=JSON.parse(raw); if(o&&typeof o==='object') return o; } }catch(e){} return clone(D); }
-    function set(o){ try{ localStorage.setItem('CAMPAIGN_DEF', JSON.stringify(o)); }catch(e){} }
-    function ensureMonths(id){var el=document.getElementById(id);if(!el)return;if(el.options.length<=2){var base=[1,2];for(var m=6;m<=50;m++)base.push(m);el.innerHTML='';var ph=document.createElement('option');ph.value='';ph.textContent='回数を選択';el.appendChild(ph);base.forEach(function(v){var o=document.createElement('option');o.value=String(v);o.textContent=v+'回';el.appendChild(o)});el.value=''}}
+  function get(){
+    try{
+      var raw=localStorage.getItem('CAMPAIGN_DEF');
+      if(raw){
+        var o=JSON.parse(raw);
+        if(o&&typeof o==='object') return o;
+      }
+    }catch(e){}
+    return clone(D);
+  }
 
-    function reload(){var c=document.getElementById('cat-select-c');var p=document.getElementById('plan-select-c');var price=document.getElementById('selected-plan-price-c');if(!c||!p)return;var M=get();var dict=M[c.value]||{};p.innerHTML='';Object.keys(dict).forEach(function(k){var op=document.createElement('option');op.value=k;op.textContent=k;p.appendChild(op)});if(price)price.value=(dict[p.value]||0).toLocaleString()}
+  function set(o){
+    try{
+      localStorage.setItem('CAMPAIGN_DEF', JSON.stringify(o));
+    }catch(e){}
+  }
 
-    document.addEventListener('DOMContentLoaded',function(){ensureMonths('months-campaign');reload();var c=document.getElementById('cat-select-c');var p=document.getElementById('plan-select-c');var price=document.getElementById('selected-plan-price-c');if(c)c.addEventListener('change',reload);if(p)p.addEventListener('change',function(){var dict=(get()[c.value]||{});if(price)price.value=(dict[p.value]||0).toLocaleString()});});
+  function ensureMonths(id){
+    var el=document.getElementById(id);
+    if(!el)return;
+    if(el.options.length<=2){
+      var base=[1,2];
+      for(var m=6;m<=50;m++) base.push(m);
+      el.innerHTML='';
+      var ph=document.createElement('option');
+      ph.value='';
+      ph.textContent='回数を選択';
+      el.appendChild(ph);
+      base.forEach(function(v){
+        var o=document.createElement('option');
+        o.value=String(v);
+        o.textContent=v+'回';
+        el.appendChild(o);
+      });
+      el.value='';
+    }
+  }
 
-    window.__getCampaign=get; window.__setCampaign=set;
-  })();
-  </script>
+  function reload(){
+    var c=document.getElementById('cat-select-c');
+    var p=document.getElementById('plan-select-c');
+    var price=document.getElementById('selected-plan-price-c');
+    if(!c||!p) return;
+
+    var M=get();
+    var dict=M[c.value]||{};
+    p.innerHTML='';
+    Object.keys(dict).forEach(function(k){
+      var op=document.createElement('option');
+      op.value=k;
+      op.textContent=k;
+      p.appendChild(op);
+    });
+
+    if(price) price.value=(dict[p.value]||0).toLocaleString();
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){
+    ensureMonths('months-campaign');
+    reload();
+    var c=document.getElementById('cat-select-c');
+    var p=document.getElementById('plan-select-c');
+    var price=document.getElementById('selected-plan-price-c');
+
+    if(c) c.addEventListener('change',reload);
+    if(p) p.addEventListener('change',function(){
+      var dict=(get()[c.value]||{});
+      if(price) price.value=(dict[p.value]||0).toLocaleString();
+    });
+  });
+
+  window.__getCampaign=get;
+  window.__setCampaign=set;
+
+})();
+</script>
+
 
   <!-- キャンペーン：計算とUI（学割・学ボタン含む） -->
   <script>
